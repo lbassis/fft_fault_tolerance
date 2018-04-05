@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <complex>
+#include <fstream>
 //#include <opencv2/opencv.hpp>
 
 using namespace std;
@@ -53,6 +54,13 @@ int main() {
 
   fft2(test, 4);
 
-  for (int i = 0; i < 4; i++)
-    cout << test[i].real() << "+" << test[i].imag() << "i" << endl;
+  ofstream output;
+  output.open("output.txt");
+  for (int i = 0; i < 4; i++) {
+    if (test[i].imag() >= 0)
+      output << test[i].real() << "+" << test[i].imag() << "j" << endl;
+    else
+      output << test[i].real() << test[i].imag() << "j" << endl;
+  }
+  output.close();
 }
