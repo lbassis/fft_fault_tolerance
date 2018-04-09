@@ -2,7 +2,12 @@
 
 ## Criação da matriz
 
-Para criar a matriz de intensidade da imagem em P&B, rode:
+Para criar a matriz de intensidade da imagem em P&B, é necessário ter o opencv-python (cv2) instalado. Para instalar, rode:
+```
+pip install opencv-python
+```
+
+Depois para executar o script:
 
 ```
 python matrix_creator.py PATH_DA_IMAGEM
