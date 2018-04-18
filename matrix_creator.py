@@ -4,7 +4,7 @@ from sys import argv
 
 import cv2
 
-def open(path):
+def open2(path):
     image = cv2.imread(path, 0) # já lê em P&B
 
     if image is None:
@@ -14,7 +14,7 @@ def open(path):
     return image
 
 def create_file(image, filename):
-    with open(filename,"w+") as f:
+    with open(filename,"w") as f:
         height, width = image.shape
         f.write("{}\n{}".format(height, width))
 
@@ -22,7 +22,7 @@ def create_file(image, filename):
             f.write("\n")
             
             for column in range(0, width):
-                f.write("{} ".format(image[row, column]))
+                f.write("{}\n".format(image[row, column]))
 
 
 ## main ##
@@ -31,7 +31,7 @@ if len(argv) < 2:
     print("[ERRO] passe o path da imagem como parametro")
     exit(0)
 
-image = open(argv[1])
+image = open2(argv[1])
 
 create_file(image, "matrix.txt")
 

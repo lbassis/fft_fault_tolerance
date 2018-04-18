@@ -2,7 +2,9 @@
 #include <cmath>
 #include <complex>
 #include <fstream>
-//#include <opencv2/opencv.hpp>
+#include <cstdlib>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -44,23 +46,52 @@ void fft2 (complex<double> *matrix, int n) {
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
-  complex<double> test[4];
-  test[0] = complex<double>(1.0, 0.0);
-  test[1] = complex<double>(2.0, 0.0);
-  test[2] = complex<double>(3.0, 0.0);
-  test[3] = complex<double>(4.0, 0.0);
+  string line;
+  ifstream file (argv[1]);
+  int width, height, size;
+  
+  
+  
+  if (file.is_open())
+  {
+    getline(file, line);
+    width = atoi(line.c_str());
+    getline(file, line);
+    height = atoi(line.c_str());
 
-  fft2(test, 4);
+    size = width*height;
 
-  ofstream output;
-  output.open("output.txt");
-  for (int i = 0; i < 4; i++) {
-    if (test[i].imag() >= 0)
-      output << test[i].real() << "+" << test[i].imag() << "j" << endl;
-    else
-      output << test[i].real() << test[i].imag() << "j" << endl;
+    complex<double> matrix[size];
+    complex<double> current;
+    int position = 0;
+
+    while (getline(file,line)) {
+      current = complex<double>(atof(line.c_str())/255, 0.0);
+      matrix[position] = current;
+      position++;
+    }
+
+
+    file.close();
+
+    fft2(matrix, size);
+
+        ofstream output;
+    output.open("output.txt");
+    for (int i = 0; i < size; i++) {
+      if (matrix[i].imag() >= 0)
+	output << matrix[i].real() << "+" << matrix[i].imag() << "j" << endl;
+      else
+	output << matrix[i].real() << matrix[i].imag() << "j" << endl;
+    }
+    output.close();
+  
   }
-  output.close();
+
+  else cout << "Unable to open file"; 
+
+
+
 }
