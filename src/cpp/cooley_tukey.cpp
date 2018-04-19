@@ -51,9 +51,9 @@ int main(int argc, char *argv[]) {
   string line;
   ifstream file (argv[1]);
   int width, height, size;
-  
-  
-  
+
+
+
   if (file.is_open())
   {
     getline(file, line);
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     size = width*height;
 
-    complex<double> matrix[size];
+    complex<double> *matrix = new complex<double>[size];
     complex<double> current;
     int position = 0;
 
@@ -78,8 +78,8 @@ int main(int argc, char *argv[]) {
 
     fft2(matrix, size);
 
-        ofstream output;
-    output.open("output.txt");
+    ofstream output;
+    output.open("/tmp/cooley_cpp/output.txt");
     for (int i = 0; i < size; i++) {
       if (matrix[i].imag() >= 0)
 	output << matrix[i].real() << "+" << matrix[i].imag() << "j" << endl;
@@ -87,10 +87,10 @@ int main(int argc, char *argv[]) {
 	output << matrix[i].real() << matrix[i].imag() << "j" << endl;
     }
     output.close();
-  
+
   }
 
-  else cout << "Unable to open file"; 
+  else cout << "Unable to open file";
 
 
 
