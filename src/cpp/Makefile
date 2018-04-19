@@ -16,5 +16,5 @@ mv_bin: gen_data
 	cp ../../matrix.txt $(destDir)
 	mv ./cpp $(destDir)
 	mv ./golden.txt $(destDir)
-	mv ./cpp.conf $(destDir)
+	cp ./cpp.conf $(destDir)
 	@echo "All Done, executables should be in the $(destDir)"
