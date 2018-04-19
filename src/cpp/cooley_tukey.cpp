@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     fft2(matrix, size);
 
     ofstream output;
-    output.open("/tmp/cooley_cpp/output.txt");
+    output.open(argv[2]);
     for (int i = 0; i < size; i++) {
       if (matrix[i].imag() >= 0)
 	output << matrix[i].real() << "+" << matrix[i].imag() << "j" << endl;

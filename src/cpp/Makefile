@@ -1,0 +1,19 @@
+# C compiler
+CC = g++ -g
+
+destDir = /tmp/cooley_cpp
+
+all: gen_bin gen_data mv_bin
+
+gen_bin: cooley_tukey.cpp
+	$(CC) cooley_tukey.cpp -o cpp
+
+gen_data: gen_bin
+	./cpp ../../matrix.txt ./golden.txt
+
+mv_bin: gen_data
+	mkdir -p $(destDir)
+	mv ./cpp $(destDir)
+	mv ./golden.txt $(destDir)
+	mv ./cpp.conf $(destDir)
+	@echo "All Done, executables should be in the $(destDir)"
