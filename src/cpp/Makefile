@@ -13,6 +13,7 @@ gen_data: gen_bin
 
 mv_bin: gen_data
 	mkdir -p $(destDir)
+	cp ../../matrix.txt $(destDir)
 	mv ./cpp $(destDir)
 	mv ./golden.txt $(destDir)
 	mv ./cpp.conf $(destDir)
