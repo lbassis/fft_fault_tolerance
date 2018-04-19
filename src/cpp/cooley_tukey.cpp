@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
     int position = 0;
 
     while (getline(file,line)) {
-      current = complex<double>(atof(line.c_str())/255, 0.0);
+      current = complex<double>(atof(line.c_str()), 0.0);
       matrix[position] = current;
       position++;
     }
