@@ -10,17 +10,17 @@ def open2(path):
     if image is None:
         print("[ERRO] imagem não encontrada")
         exit(0)
-        
+
     return image
 
 def create_file(image, filename):
     with open(filename,"w") as f:
         height, width = image.shape
-        f.write("{}\n{}".format(height, width))
+        f.write("{}\n{}\n".format(height, width))
 
         for row in range(0,height):
-            f.write("\n")
-            
+            f.write("")
+
             for column in range(0, width):
                 f.write("{}\n".format(image[row, column]))
 
