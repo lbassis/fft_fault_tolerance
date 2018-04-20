@@ -45,7 +45,9 @@ with open(argv[1], "r") as f:
 	height = int(f.readline())
 	width = int(f.readline())
 	for i in range(height):
-		row = list(map(int, (f.readline()).split()))
+		row = []
+		for j in range(width):
+			row.append(int(f.readline()))
 		matrix.append(row)
 
 coefficients = []
@@ -54,4 +56,3 @@ for row in matrix:
 		coefficients.append(complex(item, 0))
 
 new_coefficients = fft2(coefficients, height * width)
-			
