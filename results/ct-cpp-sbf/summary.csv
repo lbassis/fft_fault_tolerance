@@ -1,0 +1,65 @@
+bitflips:;3310
+SDCs:;893
+Crashes:;78
+Simultaneous SDCs and Crashes:;0
+
+FaultModels SDCs:
+FaultModel ;#SDCs; percentage
+Single bit-flip;893;100.0
+
+FaultModels Crashes:
+FaultModel ;#Crashes; percentage
+Single bit-flip;78;8.734602463605823
+
+Variables that caused SDCs:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+65.89403973509934;302;199;n;cooley_tukey.cpp;28
+60.063897763578275;313;188;matrix;cooley_tukey.cpp;28
+97.81420765027322;183;179;size;cooley_tukey.cpp;53
+100.0;165;165;i;cooley_tukey.cpp;83
+49.65034965034965;143;71;matrix;cooley_tukey.cpp;66
+4.207119741100324;309;13;i;cooley_tukey.cpp;35
+50.0;18;9;evens;cooley_tukey.cpp;38
+34.78260869565217;23;8;odds;cooley_tukey.cpp;39
+25.0;20;5;sinix;s_cexp.c;40
+55.55555555555556;9;5;n;cooley_tukey.cpp;11
+25.0;20;5;this;cooley_tukey.cpp;0
+40.0;10;4;__r;/usr/include/c++/6/complex;388
+50.0;6;3;i;cooley_tukey.cpp;14
+27.27272727272727;11;3;__z;/usr/include/c++/6/complex;1321
+5.88235294117647;51;3;sf;vsnprintf.c;96
+42.857142857142854;7;3;heap;cooley_tukey.cpp;13
+33.33333333333333;9;3;x;../sysdeps/ieee754/dbl-64/s_sincos.c;62
+1.7341040462427744;173;3;position;cooley_tukey.cpp;68
+100.0;2;2;workstart;vfprintf.c;1257
+100.0;2;2;sn;../sysdeps/ieee754/dbl-64/s_sin.c;200
+33.33333333333333;6;2;__r;/usr/include/c++/6/complex;328
+40.0;5;2;exponent;strtod_l.c;484
+66.66666666666666;3;2;__y;/usr/include/c++/6/complex;326
+8.695652173913043;23;2;cosix;s_cexp.c;40
+100.0;2;2;a;../sysdeps/ieee754/dbl-64/s_sincos.c;80
+33.33333333333333;6;2;matrix;cooley_tukey.cpp;11
+25.0;4;1;__r;/usr/include/c++/6/complex;358
+50.0;2;1;cs;../sysdeps/ieee754/dbl-64/s_sin.c;152
+2.857142857142857;35;1;twiddle;cooley_tukey.cpp;40
+25.0;4;1;__x;/usr/include/c++/6/complex;386
+100.0;1;1;x;../sysdeps/ieee754/dbl-64/s_sin.c;466
+0.5780346820809248;173;1;argc;cooley_tukey.cpp;49
+100.0;1;1;ccs;../sysdeps/ieee754/dbl-64/s_sin.c;468
+16.666666666666664;6;1;__y;/usr/include/c++/6/complex;386
+
+Variables that caused Crash:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+10.264900662251655;302;31;n;cooley_tukey.cpp;28
+9.26517571884984;313;29;matrix;cooley_tukey.cpp;28
+1.2944983818770228;309;4;i;cooley_tukey.cpp;35
+1.9607843137254901;153;3;argv;cooley_tukey.cpp;49
+22.22222222222222;9;2;n;cooley_tukey.cpp;11
+100.0;2;2;endptr;strtod_l.c;479
+14.285714285714285;7;1;heap;cooley_tukey.cpp;13
+5.0;20;1;this;cooley_tukey.cpp;0
+20.0;5;1;_rtld_global_ro;rtld.c;259
+0.5780346820809248;173;1;position;cooley_tukey.cpp;68
+33.33333333333333;3;1;_dl_skip_args;rtld.c;84
+0.546448087431694;183;1;size;cooley_tukey.cpp;53
+16.666666666666664;6;1;matrix;cooley_tukey.cpp;11
