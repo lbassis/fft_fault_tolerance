@@ -1,6 +1,8 @@
 import math
 import cmath
 
+from sys import argv
+
 pi = 3.14159265358979323846
 
 def separate_odd_from_even(element_array):
@@ -34,26 +36,22 @@ def fft2(coefficients, n):
 	else:
 		return coefficients
 
-def main():
-	nSamples = 64
-	nSeconds = 1.0
-	sampleRate = nSamples / nSeconds
-	freqResolution = sampleRate / nSamples
-	x = []
-	y = []
-	nFreq = 5
-	freq = [2, 5, 11, 17, 29]
+if len(argv) < 2:
+    print("[ERRO] passe o path do txt como parametro!")
+    exit(0)
 
-	for i in range(nSamples):
-		x.append(complex(0.0,0.0))
-		for j in range(nFreq):
-			x[i] += math.sin(2*pi*freq[j]*i/nSamples)
-		y.append(x[i])
+matrix = []
+with open(argv[1], "r") as f:
+	height = int(f.readline())
+	width = int(f.readline())
+	for i in range(height):
+		row = list(map(int, (f.readline()).split()))
+		matrix.append(row)
 
-	y = fft2(y,nSamples)
-	print(" n	    x[]	    y[]		f")
-	for i in range(nSamples):
-		print(i, round(x[i].real,3), round(abs(y[i]),3), i*freqResolution)
+coefficients = []
+for row in matrix:
+	for item in row:
+		coefficients.append(complex(item, 0))
 
-if __name__ == '__main__':
-   main()
+new_coefficients = fft2(coefficients, height * width)
+			
