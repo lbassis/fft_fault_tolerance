@@ -91,13 +91,15 @@ int main(int argc, char *argv[]) {
 
     while (position < size) {
       if (cimag(matrix[position]) >= 0)
-	  printf("%f+%fj\n", creal(matrix[position]), cimag(matrix[position]));
+	fprintf(output, "%f+%fj\n", creal(matrix[position]), cimag(matrix[position]));
 
       else
-	  printf("%f%fj\n", creal(matrix[position]), cimag(matrix[position]));
+	fprintf(output, "%f%fj\n", creal(matrix[position]), cimag(matrix[position]));
 
       position++;
     }
+
+    fclose(output);
 
     return 0;
   }
