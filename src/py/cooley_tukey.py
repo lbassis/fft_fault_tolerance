@@ -3,7 +3,7 @@ import cmath
 
 from sys import argv
 
-pi = 3.14159265358979323846
+pi = math.pi
 
 def separate_odd_from_even(element_array):
 	even = []
@@ -20,9 +20,8 @@ def power_of_two(n):
 	return N != 0 and ((N & (N-1)) == 0)
 
 def fft2(coefficients, n):
-	if not power_of_two(n):
-		return -1
-	elif n >= 2:
+	
+	if n >= 2:
 		even, odd = separate_odd_from_even(coefficients)
 		even = fft2(even, n/2)
 		odd = fft2(odd, n/2)
@@ -50,9 +49,16 @@ with open(argv[1], "r") as f:
 			row.append(int(f.readline()))
 		matrix.append(row)
 
+
 coefficients = []
 for row in matrix:
 	for item in row:
 		coefficients.append(complex(item, 0))
 
 new_coefficients = fft2(coefficients, height * width)
+
+with open(argv[2], "w") as output:
+        for e in new_coefficients:
+                
+                output.write("".join("{}\n".format(str(e))))
+
