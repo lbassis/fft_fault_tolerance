@@ -1,0 +1,70 @@
+bitflips:;3517
+SDCs:;933
+Crashes:;88
+Simultaneous SDCs and Crashes:;0
+
+FaultModels SDCs:
+FaultModel ;#SDCs; percentage
+Double bit-flip;933;100.0
+
+FaultModels Crashes:
+FaultModel ;#Crashes; percentage
+Double bit-flip;88;9.431939978563774
+
+Variables that caused SDCs:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+60.23054755043228;347;209;matrix;cooley_tukey.cpp;28
+100.0;184;184;i;cooley_tukey.cpp;83
+58.01282051282052;312;181;n;cooley_tukey.cpp;28
+96.85534591194968;159;154;size;cooley_tukey.cpp;53
+51.85185185185185;162;84;matrix;cooley_tukey.cpp;66
+5.572755417956656;323;18;i;cooley_tukey.cpp;35
+68.0;25;17;evens;cooley_tukey.cpp;38
+53.333333333333336;15;8;__x;/usr/include/c++/6/complex;386
+27.586206896551722;29;8;this;cooley_tukey.cpp;0
+57.14285714285714;14;8;x;../sysdeps/ieee754/dbl-64/s_sincos.c;62
+33.33333333333333;21;7;odds;cooley_tukey.cpp;39
+57.14285714285714;7;4;matrix;cooley_tukey.cpp;11
+5.714285714285714;70;4;sf;vsnprintf.c;96
+5.263157894736842;57;3;_IO_strn_jumps;vsnprintf.c;67
+42.857142857142854;7;3;f;vfprintf.c;1247
+50.0;6;3;__y;/usr/include/c++/6/complex;356
+17.647058823529413;17;3;sinix;s_cexp.c;40
+12.0;25;3;twiddle;cooley_tukey.cpp;40
+60.0;5;3;i;cooley_tukey.cpp;14
+75.0;4;3;n;cooley_tukey.cpp;11
+100.0;2;2;cs;../sysdeps/ieee754/dbl-64/s_sin.c;152
+9.090909090909092;22;2;cosix;s_cexp.c;40
+50.0;4;2;__r;/usr/include/c++/6/complex;358
+16.666666666666664;12;2;__z;/usr/include/c++/6/complex;1321
+50.0;4;2;x;../sysdeps/ieee754/dbl-64/s_sin.c;466
+1.1299435028248588;177;2;position;cooley_tukey.cpp;68
+100.0;2;2;workstart;vfprintf.c;1257
+25.0;8;2;heap;cooley_tukey.cpp;13
+18.181818181818183;11;2;__y;/usr/include/c++/6/complex;386
+12.5;8;1;__r;/usr/include/c++/6/complex;388
+50.0;2;1;x;../sysdeps/ieee754/dbl-64/s_sin.c;298
+100.0;1;1;big;../sysdeps/ieee754/dbl-64/dosincos.h;73
+50.0;2;1;__r;/usr/include/c++/6/complex;328
+100.0;1;1;sn;../sysdeps/ieee754/dbl-64/s_sin.c;218
+50.0;2;1;__x;/usr/include/c++/6/complex;326
+33.33333333333333;3;1;__z;/usr/include/c++/6/complex;1303
+16.666666666666664;6;1;__y;/usr/include/c++/6/complex;326
+
+Variables that caused Crash:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+10.897435897435898;312;34;n;cooley_tukey.cpp;28
+8.93371757925072;347;31;matrix;cooley_tukey.cpp;28
+13.793103448275861;29;4;this;cooley_tukey.cpp;0
+42.857142857142854;7;3;user_entry;../elf/dl-sysdep.c;89
+0.9287925696594427;323;3;i;cooley_tukey.cpp;35
+100.0;2;2;_dl_skip_args;rtld.c;84
+1.1299435028248588;177;2;position;cooley_tukey.cpp;68
+1.257861635220126;159;2;size;cooley_tukey.cpp;53
+25.0;4;1;n;cooley_tukey.cpp;11
+0.5747126436781609;174;1;argv;cooley_tukey.cpp;49
+100.0;1;1;grouping;strtod_l.c;530
+0.6172839506172839;162;1;matrix;cooley_tukey.cpp;66
+100.0;1;1;numsize;strtod_l.c;483
+100.0;1;1;endptr;strtod_l.c;479
+20.0;5;1;i;cooley_tukey.cpp;14
