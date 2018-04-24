@@ -1,0 +1,42 @@
+bitflips:;1002
+SDCs:;261
+Crashes:;21
+Simultaneous SDCs and Crashes:;0
+
+FaultModels SDCs:
+FaultModel ;#SDCs; percentage
+Double bit-flip;261;100.0
+
+FaultModels Crashes:
+FaultModel ;#Crashes; percentage
+Double bit-flip;21;8.045977011494253
+
+Variables that caused SDCs:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+60.36036036036037;111;67;matrix;cooley_tukey.cpp;28
+63.33333333333333;90;57;n;cooley_tukey.cpp;28
+100.0;51;51;size;cooley_tukey.cpp;53
+100.0;38;38;i;cooley_tukey.cpp;83
+41.17647058823529;51;21;matrix;cooley_tukey.cpp;66
+60.0;10;6;sinix;s_cexp.c;40
+2.727272727272727;110;3;i;cooley_tukey.cpp;35
+42.857142857142854;7;3;__y;/usr/include/c++/6/complex;386
+50.0;4;2;__z;/usr/include/c++/6/complex;1321
+66.66666666666666;3;2;this;cooley_tukey.cpp;0
+40.0;5;2;odds;cooley_tukey.cpp;39
+100.0;1;1;i;cooley_tukey.cpp;14
+2.272727272727273;44;1;line;cooley_tukey.cpp;51
+20.0;5;1;evens;cooley_tukey.cpp;38
+100.0;1;1;x;../sysdeps/ieee754/dbl-64/s_sincos.c;62
+100.0;1;1;workstart;vfprintf.c;1257
+5.263157894736842;19;1;sf;vsnprintf.c;96
+12.5;8;1;twiddle;cooley_tukey.cpp;40
+9.090909090909092;11;1;cosix;s_cexp.c;40
+100.0;1;1;c4;../sysdeps/ieee754/dbl-64/dosincos.h;66
+
+Variables that caused Crash:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+14.444444444444443;90;13;n;cooley_tukey.cpp;28
+5.405405405405405;111;6;matrix;cooley_tukey.cpp;28
+100.0;1;1;matrix;cooley_tukey.cpp;11
+2.1739130434782608;46;1;argv;cooley_tukey.cpp;49

@@ -1,0 +1,22 @@
+Variable Name;Variable File;Variable Line;Fault Injection Time(s);Injection Time Interval;Fault Model
+n;cooley_tukey.cpp;28;2.333524227142334;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;1.5332107543945312;0-7;Double bit-flip
+argv;cooley_tukey.cpp;49;2.618408203125;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;1.4898662567138672;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;1.283271074295044;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;2.6553733348846436;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;1.2985789775848389;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;2.7881052494049072;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;3.997162103652954;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;11;2.7731997966766357;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;0.6724963188171387;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;3.4199352264404297;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;1.5578529834747314;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;3.2415921688079834;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;3.193513870239258;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;1.2949159145355225;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;1.4704580307006836;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;2.0855231285095215;0-7;Double bit-flip
+matrix;cooley_tukey.cpp;28;3.5766685009002686;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;1.4565813541412354;0-7;Double bit-flip
+n;cooley_tukey.cpp;28;3.1191351413726807;0-7;Double bit-flip
