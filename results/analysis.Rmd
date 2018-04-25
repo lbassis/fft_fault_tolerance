@@ -1,6 +1,8 @@
 ---
 title: "Análise das injeções"
-output: pdf_document
+output: 
+  pdf_document: 
+    fig_height: 3
 ---
 
 ```{r setup, include=FALSE, echo=FALSE}
@@ -11,9 +13,10 @@ library(magrittr)
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2)
 library(ggthemes)
+library(knitr)
 
 subsetSize <- 10
-summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, sep = ";")
+summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, sep = ",")
 
 cppSDCDf <- read.delim("cpp-single/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
 cppDUEDf <- read.delim("cpp-single/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
@@ -26,6 +29,30 @@ fftw2DUEDf <- read.delim("fftw2t-single/variables_due.csv", colClasses = charact
 
 
 ```
+
+## Introdução
+
+Para a elaboração desse trabalho, foram injetadas entre 3000 e 5000 falhas através do CAROL-FI em 5 aplicações diferentes. Todos os testes foram executados em processadores da família Intel Core, portanto assume-se que se trata da mesma arquitetura, apesar das pequenas diferenças que possam existir entre os diferentes modelos utilizados.
+
+As aplicações foram:
+  - Algoritmo de Cooley-Tukey em C++
+  - Algoritmo de Cooley-Tukey em C
+  - Algoritmo de Cooley-Tukey em Python
+  - Cálculo da transformada através da biblioteca FFTW utilizando 1 thread
+  - Cálculo da transformada através da biblioteca FFTW utilizando 2 threads
+
+
+## Vulnerabilidade
+
+O resultado geral das injeções é mostrado na tabela abaixo.
+
+
+```{r, echo=FALSE}
+kable(summaryDf)
+```
+
+
+A implementação que se mostrou mais vulnerável foi a em Python que, devido aos resultados obtidos, teve muito menos injeções e foi descartada posteriormente. Além disso, as implementações que fazem uso de uma biblioteca para o cálculo da transformada se mostraram mais resilientes, possivelmente graças à verificações feitas internamente, com exceção da implementação com 2 threads que apresentou uma taxa maior de DUEs. Nas sessões seguintes faremos análises específicas para cada versão.
 
 ## Análise Cooley-Tukey C++
 
