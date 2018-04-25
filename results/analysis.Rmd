@@ -35,11 +35,12 @@ fftw2DUEDf <- read.delim("fftw2t-single/variables_due.csv", colClasses = charact
 Para a elaboração desse trabalho, foram injetadas entre 3000 e 5000 falhas através do CAROL-FI em 5 aplicações diferentes. Todos os testes foram executados em processadores da família Intel Core, portanto assume-se que se trata da mesma arquitetura, apesar das pequenas diferenças que possam existir entre os diferentes modelos utilizados.
 
 As aplicações foram:
-  - Algoritmo de Cooley-Tukey em C++
-  - Algoritmo de Cooley-Tukey em C
-  - Algoritmo de Cooley-Tukey em Python
-  - Cálculo da transformada através da biblioteca FFTW utilizando 1 thread
-  - Cálculo da transformada através da biblioteca FFTW utilizando 2 threads
+
+* Algoritmo de Cooley-Tukey em C++
+* Algoritmo de Cooley-Tukey em C
+* Algoritmo de Cooley-Tukey em Python
+* Cálculo da transformada através da biblioteca FFTW utilizando 1 thread
+* Cálculo da transformada através da biblioteca FFTW utilizando 2 threads
 
 
 ## Vulnerabilidade
