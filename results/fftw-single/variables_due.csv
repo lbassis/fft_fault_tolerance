@@ -1,0 +1,13 @@
+PVF ;flips ;SDCs ;Var name ;file ;line number
+1.8947368421052633;475;9;argv;fftw.cpp;40
+20.0;30;6;user_entry;../elf/dl-sysdep.c;89
+19.047619047619047;21;4;_dl_skip_args;rtld.c;84
+1.4150943396226416;212;3;_r_debug;dl-debug.c;37
+11.11111111111111;18;2;size;fftw.cpp;10
+16.666666666666664;12;2;line;fftw.cpp;12
+100.0;1;1;mapp;dl-addr.c;27
+3.4482758620689653;29;1;preloadlist;rtld.c;836
+3.8461538461538463;26;1;__GI__dl_argv;rtld.c;83
+5.555555555555555;18;1;position;fftw.cpp;27
+2.7027027027027026;37;1;_rtld_global_ro;rtld.c;259
+0.20876826722338201;479;1;size;fftw.cpp;44

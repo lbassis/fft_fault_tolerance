@@ -1,0 +1,18 @@
+PVF ;flips ;SDCs ;Var name ;file ;line number
+22.25201072386059;373;83;out;fftw2t.cpp;42
+21.522309711286088;381;82;in;fftw2t.cpp;42
+46.25;160;74;p;fftw2t.cpp;43
+17.302052785923756;341;59;size;fftw2t.cpp;44
+46.15384615384615;13;6;_dl_skip_args;rtld.c;84
+37.5;16;6;user_entry;../elf/dl-sysdep.c;89
+1.1235955056179776;356;4;argv;fftw2t.cpp;40
+10.0;30;3;_rtld_global_ro;rtld.c;259
+21.428571428571427;14;3;size;fftw2t.cpp;10
+1.3605442176870748;147;2;_IO_strn_jumps;vsnprintf.c;67
+1.8691588785046727;107;2;sf;vsnprintf.c;96
+14.285714285714285;14;2;input;fftw2t.cpp;10
+6.451612903225806;31;2;__GI__dl_argv;rtld.c;83
+28.57142857142857;7;2;workstart;vfprintf.c;1257
+100.0;1;1;sigs;abort.c;53
+0.6666666666666667;150;1;_r_debug;dl-debug.c;37
+3.0303030303030303;33;1;_rtld_global;rtld.c;231
