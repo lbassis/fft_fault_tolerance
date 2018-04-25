@@ -1,5 +1,10 @@
 ---
-title: "Análise das injeções"
+title: "Análise de injeções - Transformada de Fourier"
+author:
+  - Augusto Boranga
+  - Jonathan Martins
+  - Lucas Assis
+  - Murilo Wolfart
 output: 
   pdf_document: 
     fig_height: 3
@@ -16,7 +21,7 @@ library(ggthemes)
 library(knitr)
 
 subsetSize <- 10
-summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, sep = ",")
+summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, sep = ";", dec = ",")
 
 cppSDCDf <- read.delim("cpp-single/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
 cppDUEDf <- read.delim("cpp-single/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
@@ -49,6 +54,8 @@ O resultado geral das injeções é mostrado na tabela abaixo.
 
 
 ```{r, echo=FALSE}
+summaryDf$AVF.SDCs <- round(summaryDf$AVF.SDCs, 2)
+summaryDf$AVF.DUEs <- round(summaryDf$AVF.DUEs, 2)
 kable(summaryDf)
 ```
 
