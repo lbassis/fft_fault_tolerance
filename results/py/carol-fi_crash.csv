@@ -1,0 +1,21 @@
+Variable Name;Variable File;Variable Line;Fault Injection Time(s);Injection Time Interval;Fault Model
+__realloc_hook;malloc.c;1865;3.3843917846679688;0-13;Single bit-flip
+__free_hook;malloc.c;1861;9.50938606262207;0-13;Single bit-flip
+__morecore;malloc.c;400;3.103609323501587;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;3.4571404457092285;0-13;Single bit-flip
+oldsize;malloc.c;4262;7.515113353729248;0-13;Single bit-flip
+__realloc_hook;malloc.c;1865;6.76212739944458;0-13;Single bit-flip
+thread_arena;arena.c;69;7.385633707046509;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;12.08600640296936;0-13;Single bit-flip
+__free_hook;malloc.c;1861;11.977495670318604;0-13;Single bit-flip
+__morecore;malloc.c;400;5.330343723297119;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;7.220154285430908;0-13;Single bit-flip
+__realloc_hook;malloc.c;1865;3.1353259086608887;0-13;Single bit-flip
+__morecore;malloc.c;400;0.7807955741882324;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;0.4236636161804199;0-13;Single bit-flip
+__free_hook;malloc.c;1861;11.021992444992065;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;5.160262823104858;0-13;Single bit-flip
+__free_hook;malloc.c;1861;8.032496452331543;0-13;Single bit-flip
+__realloc_hook;malloc.c;1865;4.094238042831421;0-13;Single bit-flip
+main_arena;malloc.c;1753;3.330754280090332;0-13;Single bit-flip
+__after_morecore_hook;malloc.c;1871;3.759298086166382;0-13;Single bit-flip

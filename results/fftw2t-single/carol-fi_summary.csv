@@ -1,0 +1,53 @@
+bitflips:;3723
+SDCs:;803
+Crashes:;333
+Simultaneous SDCs and Crashes:;0
+
+FaultModels SDCs:
+FaultModel ;#SDCs; percentage
+Single bit-flip;803;100.0
+
+FaultModels Crashes:
+FaultModel ;#Crashes; percentage
+Single bit-flip;333;41.46948941469489
+
+Variables that caused SDCs:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+100.0;345;345;i;fftw2t.cpp;59
+82.69794721407625;341;282;size;fftw2t.cpp;44
+33.51206434316354;373;125;out;fftw2t.cpp;42
+83.33333333333334;12;10;position;fftw2t.cpp;27
+50.0;14;7;input;fftw2t.cpp;10
+42.857142857142854;14;6;size;fftw2t.cpp;10
+3.4013605442176873;147;5;_IO_strn_jumps;vsnprintf.c;67
+4.672897196261682;107;5;sf;vsnprintf.c;96
+71.42857142857143;7;5;workstart;vfprintf.c;1257
+75.0;4;3;exponent;strtod_l.c;484
+28.57142857142857;7;2;f;vfprintf.c;1247
+11.76470588235294;17;2;step0_jumps;vfprintf.c;1336
+33.33333333333333;3;1;endptr;strtod_l.c;479
+100.0;1;1;exponent;strtod_l.c;339
+12.5;8;1;info;vfprintf.c;1636
+0.6666666666666667;150;1;_r_debug;dl-debug.c;37
+7.6923076923076925;13;1;_dl_skip_args;rtld.c;84
+6.25;16;1;user_entry;../elf/dl-sysdep.c;89
+
+Variables that caused Crash:
+PVF ;#flips ;#SDCs ;Var name ;file ;line number
+22.25201072386059;373;83;out;fftw2t.cpp;42
+21.522309711286088;381;82;in;fftw2t.cpp;42
+46.25;160;74;p;fftw2t.cpp;43
+17.302052785923756;341;59;size;fftw2t.cpp;44
+46.15384615384615;13;6;_dl_skip_args;rtld.c;84
+37.5;16;6;user_entry;../elf/dl-sysdep.c;89
+1.1235955056179776;356;4;argv;fftw2t.cpp;40
+10.0;30;3;_rtld_global_ro;rtld.c;259
+21.428571428571427;14;3;size;fftw2t.cpp;10
+1.3605442176870748;147;2;_IO_strn_jumps;vsnprintf.c;67
+1.8691588785046727;107;2;sf;vsnprintf.c;96
+14.285714285714285;14;2;input;fftw2t.cpp;10
+6.451612903225806;31;2;__GI__dl_argv;rtld.c;83
+28.57142857142857;7;2;workstart;vfprintf.c;1257
+100.0;1;1;sigs;abort.c;53
+0.6666666666666667;150;1;_r_debug;dl-debug.c;37
+3.0303030303030303;33;1;_rtld_global;rtld.c;231
