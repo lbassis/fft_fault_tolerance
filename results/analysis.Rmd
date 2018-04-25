@@ -1,0 +1,81 @@
+---
+title: "Análise das injeções"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(stats)
+library(base)
+library(magrittr)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+library(ggthemes)
+
+subsetSize <- 10
+summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, sep = ";")
+cppSDCDf <- read.delim("cpp-single/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
+cppDUEDf <- read.delim("cpp-single/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
+```
+
+## Análise Cooley-Tukey C++
+
+Na implementação em C++, foram injetados 3723 falhas. No gráfico a seguir, é possível ver a distribuição dos resultados das injeções.
+
+```{r, echo=FALSE}
+
+cpp <- read.delim("cpp-single/summary.csv", colClasses = character(), header = FALSE, sep = ";")
+colnames(cpp) <- c("Value", "Result")
+cpp %>% 
+  filter(Value != "Injections") %>%
+  ggplot(aes(x="", y=Result, fill=Value)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(palette="Blues") +
+  theme_minimal() +
+  ylab("") +
+  xlab("")
+```
+
+De acordo com os dados obtidos, cerca de 25% das falhas resultaram em SDCs, enquanto os DUEs representam menos de 5%. Felizmente, a grande maioria das injeções não resultou em alterações na saída.
+
+
+```{r, echo=FALSE}
+
+cppSDCDf %>% 
+  arrange (-PVF) %>% 
+  tibble::rowid_to_column("rowNumber") %>%
+  filter(rowNumber<subsetSize) %>%
+  select (PVF, Var.name) %>%
+  ggplot(aes(Var.name, PVF)) +
+  geom_bar(stat="identity", position="dodge", fill="dodgerblue4") + 
+  theme_base() + theme(axis.text.x = element_text(angle = 0, hjust = 1)) +
+  coord_flip() +
+  theme(axis.title=element_text(size=20)) +
+  xlab("Variable") +
+  ylab("PVF") +
+  ggtitle("SDCs Cooley-Tukey C++")
+```
+
+Verificando as 10 variáveis mais vulneráveis, percebe-se que apenas duas entre elas fazem parte da aplicação em si, sendo as outras vindas das bibliotecas utilizadas. Com isso, concluimos que, para que a aplicação seja protegida da melhor maneira possível, é preferível que não sejam utilizadas bibliotecas (ou sejam utilizadas o mínimo possível). No caso deste trabalho, o foco ficará nas variáveis que podem ser protegidas, ou seja, as criadas pelos alunos.
+
+Nesta análise, temos as váriaveis *i* e *size* como mais vulneráveis em questão de SDCs. Como tratam-se de variáveis de controle, uma simples duplicação (ou triplicação) não deve resultar em um *overhead* significativo e, portanto, provavelmente será uma boa solução na etapa seguinte do trabalho.
+
+```{r, echo=FALSE}
+
+cppDUEDf %>% 
+  arrange (-PVF) %>% 
+  tibble::rowid_to_column("rowNumber") %>%
+  filter(rowNumber<subsetSize) %>%
+  select (PVF, Var.name) %>%
+  ggplot(aes(Var.name, PVF)) +
+  geom_bar(stat="identity", position="dodge", fill="dodgerblue4") + 
+  theme_base() + theme(axis.text.x = element_text(angle = 0, hjust = 1)) +
+  coord_flip() +
+  theme(axis.title=element_text(size=20)) +
+  xlab("Variable") +
+  ylab("PVF") +
+  ggtitle("DUEs Cooley-Tukey C++")
+```
+
+O mesmo se repete se tratando de DUEs; as variáveis que mais os causam são as externas. No entanto, também temos a variável *n* que, assim como as abordadas anteriormente, é uma variável de controle facilmente duplicável, e a variável *matrix*, responsável pela estrutura da aplicação. Para proteger esta, serão utilizadas técnicas mais sofisticadas que uma simples duplicação.

@@ -1393,4 +1393,4 @@ iter_doc;../Python/bltinmodule.c;1424;10.818228483200073;0-10;Single bit-flip
 builtin_bin__doc__;../Python/clinic/bltinmodule.c.h;50;6.476507186889648;0-10;Single bit-flip
 builtin_repr__doc__;../Python/clinic/bltinmodule.c.h;552;2.979688882827759;0-10;Single bit-flip
 x_digits;../Objects/longobject.c;2586;7.73824667930603;0-10;Single bit-flip
-pending_async_exc;../Python/ceval.c;298;4.666910171508789;0-10;Single bit-flip
+pending_async_exc;../Python/ceval.c;298;4.666910171508789;0-10;Single bit-flip;
