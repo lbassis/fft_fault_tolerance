@@ -44,8 +44,8 @@ As aplicações foram:
 * Algoritmo de Cooley-Tukey em C++
 * Algoritmo de Cooley-Tukey em C
 * Algoritmo de Cooley-Tukey em Python
-* Cálculo da transformada através da biblioteca FFTW utilizando 1 thread
-* Cálculo da transformada através da biblioteca FFTW utilizando 2 threads
+* Cálculo da transformada através da biblioteca FFTW (implementada em C) utilizando 1 thread
+* Cálculo da transformada através da biblioteca FFTW (implementada em C) utilizando 2 threads
 
 
 ## Vulnerabilidade
@@ -64,7 +64,7 @@ A implementação que se mostrou mais vulnerável foi a em Python que, devido ao
 
 ## Análise Cooley-Tukey C++
 
-Na implementação do algoritmo Cooley-Tukey em C++, foram injetados 3723 falhas. No gráfico a seguir, é possível ver a distribuição dos resultados das injeções.
+Na implementação do algoritmo Cooley-Tukey em C++, foram injetadas 3723 falhas. No gráfico a seguir, é possível ver a distribuição dos resultados das injeções.
 
 
 ```{r, echo=FALSE}
