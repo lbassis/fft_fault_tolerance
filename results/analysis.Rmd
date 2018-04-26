@@ -50,6 +50,8 @@ As aplicações foram:
 * Cálculo da transformada através da biblioteca FFTW (implementada em C) utilizando 1 thread
 * Cálculo da transformada através da biblioteca FFTW (implementada em C) utilizando 2 threads
 
+Todas as implementações, dados e análises realizados estão disponíveis [**aqui**](https://github.com/lbassis/fft_fault_injector). 
+
 
 ## Vulnerabilidade
 
@@ -57,8 +59,8 @@ O resultado geral das injeções é mostrado na tabela abaixo.
   
 
 ```{r, echo=FALSE}
-summaryDf$AVF.SDCs <- round(summaryDf$AVF.SDCs, 2)
-summaryDf$AVF.DUEs <- round(summaryDf$AVF.DUEs, 2)
+summaryDf$PVF.SDCs <- round(summaryDf$PVF.SDCs, 2)
+summaryDf$PVF.DUEs <- round(summaryDf$PVF.DUEs, 2)
 kable(summaryDf)
 ```
   
