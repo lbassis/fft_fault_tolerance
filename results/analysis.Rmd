@@ -26,6 +26,9 @@ summaryDf <- read.delim("summary.csv", colClasses = character(), header = TRUE, 
 cppSDCDf <- read.delim("cpp-single/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
 cppDUEDf <- read.delim("cpp-single/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
 
+cSDCDf <- read.delim("c/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
+cDUEDf <- read.delim("c/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
+
 fftwSDCDf <- read.delim("fftw-single/variables_sdc.csv", colClasses = character(), header = TRUE, sep = ";")
 fftwDUEDf <- read.delim("fftw-single/variables_due.csv", colClasses = character(), header = TRUE, sep = ";")
 
@@ -37,7 +40,7 @@ fftw2DUEDf <- read.delim("fftw2t-single/variables_due.csv", colClasses = charact
 
 ## Introdução
 
-Para a elaboração desse trabalho, foram injetadas entre 3000 e 5000 falhas através do CAROL-FI em 5 aplicações diferentes. Todos os testes foram executados em processadores da família Intel Core, portanto assume-se que se trata da mesma arquitetura, apesar das pequenas diferenças que possam existir entre os diferentes modelos utilizados.
+Para a elaboração desse trabalho, foram injetadas entre 3000 e 5000 falhas do tipo *Single Bit Flip* através do CAROL-FI em 5 aplicações diferentes. Todos os testes foram executados em processadores da família Intel Core, portanto assume-se que se trata da mesma arquitetura, apesar das pequenas diferenças que possam existir entre os diferentes modelos utilizados.
 
 As aplicações foram:
 
@@ -51,22 +54,22 @@ As aplicações foram:
 ## Vulnerabilidade
 
 O resultado geral das injeções é mostrado na tabela abaixo.
-
+  
 
 ```{r, echo=FALSE}
 summaryDf$AVF.SDCs <- round(summaryDf$AVF.SDCs, 2)
 summaryDf$AVF.DUEs <- round(summaryDf$AVF.DUEs, 2)
 kable(summaryDf)
 ```
-
+  
 
 A implementação que se mostrou mais vulnerável foi a em Python que, devido aos resultados obtidos, teve muito menos injeções e foi descartada posteriormente. Além disso, as implementações que fazem uso de uma biblioteca para o cálculo da transformada se mostraram mais resilientes, possivelmente graças à verificações feitas internamente, com exceção da implementação com 2 threads que apresentou uma taxa maior de DUEs. Nas sessões seguintes faremos análises específicas para cada versão.
-
+  
 ## Análise Cooley-Tukey C++
 
 Na implementação do algoritmo Cooley-Tukey em C++, foram injetadas 3723 falhas. No gráfico a seguir, é possível ver a distribuição dos resultados das injeções.
 
-
+  
 ```{r, echo=FALSE}
 
 cpp <- read.delim("cpp-single/summary.csv", colClasses = character(), header = FALSE, sep = ";")
@@ -83,11 +86,11 @@ cpp %>%
   scale_y_discrete(expand=c(0,0))   
 
 ```
-
+  
 
 De acordo com os dados obtidos, cerca de 25% das falhas resultaram em SDCs, enquanto os DUEs representam menos de 5%. Felizmente, a grande maioria das injeções não resultou em alterações na saída.
 
-
+  
 ```{r, echo=FALSE}
 
 cppSDCDf %>% 
@@ -104,13 +107,13 @@ cppSDCDf %>%
   ylab("PVF") +
   ggtitle("SDCs Cooley-Tukey C++")
 ```
-
+  
 
 Verificando as 10 variáveis mais vulneráveis, percebe-se que apenas duas entre elas fazem parte da aplicação em si, sendo as outras vindas das bibliotecas utilizadas. Com isso, concluimos que, para que a aplicação seja protegida da melhor maneira possível, é preferível que não sejam utilizadas bibliotecas (ou sejam utilizadas o mínimo possível). No caso deste trabalho, o foco ficará nas variáveis que podem ser protegidas, ou seja, as criadas pelos alunos.
-
+  
 Nesta análise, temos as váriaveis *i* e *size* como mais vulneráveis em questão de SDCs. Como tratam-se de variáveis de controle, uma simples duplicação (ou triplicação) não deve resultar em um *overhead* significativo e, portanto, provavelmente será uma boa solução na etapa seguinte do trabalho.
 
-
+  
 ```{r, echo=FALSE}
 
 cppDUEDf %>% 
@@ -127,15 +130,79 @@ cppDUEDf %>%
   ylab("PVF") +
   ggtitle("DUEs Cooley-Tukey C++")
 ```
-
+  
 
 O mesmo se repete se tratando de DUEs; as variáveis que mais os causam são as externas. No entanto, também temos a variável *n* que, assim como as abordadas anteriormente, é uma variável de controle facilmente duplicável, e a variável *matrix*, responsável pela estrutura da aplicação. Para proteger esta, serão necessárias técnicas mais sofisticadas que uma simples duplicação, possivelmente explorando as redundâncias inerentes à transformada.
+  
+  
+## Análise Cooley-Tukey C
+
+A implementação em C é extremamente similar à em C++, tendo como diferença o compilador e algumas funções de biblioteca, como o *malloc* que substitui o construtor *new* de C++.
+  
+```{r, echo=FALSE}
+
+c <- read.delim("c/summary.csv", colClasses = character(), header = FALSE, sep = ";")
+colnames(c) <- c("Value", "Result")
+c %>% 
+  filter(Value != "Injections") %>%
+  ggplot(aes(x="", y=Result, fill=Value)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(palette="Blues") +
+  theme_minimal() +
+  ylab("") +
+  xlab("") +
+  scale_y_discrete(expand=c(0,0))   
+
+```
+  
+Conforme esperado, os algoritmos apresentaram resultados muito similares, mostrando que mesmo variando alguns pequenos fatores as linguagens são praticamente equivalentes.
+
+  
+```{r, echo=FALSE}
+
+cSDCDf %>% 
+  arrange (-PVF) %>% 
+  tibble::rowid_to_column("rowNumber") %>%
+  filter(rowNumber<subsetSize) %>%
+  select (PVF, Var.name) %>%
+  ggplot(aes(Var.name, PVF)) +
+  geom_bar(stat="identity", position="dodge", fill="dodgerblue4") + 
+  theme_base() + theme(axis.text.x = element_text(angle = 0, hjust = 1)) +
+  coord_flip() +
+  theme(axis.title=element_text(size=20)) +
+  xlab("Variable") +
+  ylab("PVF") +
+  ggtitle("SDCs Cooley-Tukey C")
+```
+  
+
+Nesse caso já são 4 as variáveis protegíveis (isto é, não pertencentes à bibliotecas), sendo 3 delas de controle e ainda a matriz, que não havia apresentado significância nos DUEs na implementação anterior. Portanto, acredita-se que essa implementação é a que será mais beneficiada através das técnicas de tolerância a falhas.
+  
+```{r, echo=FALSE}
+
+cDUEDf %>% 
+  arrange (-PVF) %>% 
+  tibble::rowid_to_column("rowNumber") %>%
+  filter(rowNumber<subsetSize) %>%
+  select (PVF, Var.name) %>%
+  ggplot(aes(Var.name, PVF)) +
+  geom_bar(stat="identity", position="dodge", fill="dodgerblue4") + 
+  theme_base() + theme(axis.text.x = element_text(angle = 0, hjust = 1)) +
+  coord_flip() +
+  theme(axis.title=element_text(size=20)) +
+  xlab("Variable") +
+  ylab("PVF") +
+  ggtitle("DUEs Cooley-Tukey C++")
+```
+  
+Em questão de DUEs, das três variáveis protegíveis, duas já haviam sido detectadas como vulneráveis na análise dos SDCs. A única novidade é a vulnerabilidade do *heap*, que não parece apresentar uma vulnerabilidade preocupante levando em conta o *overhead* de uma duplicação, por exemplo.
 
 ## Análise FFTW C++
 
 Em seguida, foram realizados testes utilizando uma biblioteca que calcula a transformada de Fourier.
 
-
+  
 ```{r, echo=FALSE}
 
 fftw <- read.delim("fftw-single/summary.csv", colClasses = character(), header = FALSE, sep = ";")
@@ -152,11 +219,11 @@ fftw %>%
   scale_y_discrete(expand=c(0,0))   
 
 ```
-
+  
 
 Nessa implementação, novamente temos cerca de 25% de SDCs, mas os DUEs, em compensação, são ainda menos frequentes. Isso se deve provavelmente às medidas de asserção tomadas internamente na biblioteca, que foram capazes de impedir que o sistema entrasse em um estado irrecuperável.
 
-
+  
 ```{r, echo=FALSE}
 
 fftwSDCDf %>% 
@@ -173,11 +240,11 @@ fftwSDCDf %>%
   ylab("PVF") +
   ggtitle("SDCs FFTW C++")
 ```
-
+  
 
   Assim como na implementação anterior, muitos dos SDCs são causados por variáveis fora do nosso controle. Porém, diferentemente da anterior, encontramos a matriz original (na variável *in*) e o arquivo de saída (na variável *output*) entre as variáveis mais vulneráveis. Provavelmente as verificações que a biblioteca implementa são capazes de barrar parte dos erros, conforme mencionado anteriormente; portanto, com maior resiliência entre as variáveis da biblioteca, valores que são menos sensíveis passam a aparecer devido à sua falta de proteção.
 
-
+  
 ```{r, echo=FALSE}
 
 fftwDUEDf %>% 
@@ -194,16 +261,16 @@ fftwDUEDf %>%
   ylab("PVF") +
   ggtitle("DUEs FFTW C++")
 ```
-
+  
 
 Já no caso de DUEs, as únicas variáveis implementadas pelos alunos que apresentaram algum risco foram variáveis de controle. No entanto, o ponto fraco claramente é a variável *mapp*, utilizada apenas pela biblioteca e, portanto, fora do alcance de nossa proteção.
 
-
+  
 ## Análise Cooley-Tukey Python
 
 O grupo optou por incluir uma linguagem interpretada para verificar o impacto dessa escolha na vulnerabilidade da aplicação. Para isso, foi feita uma implementação do algoritmo de Cooley Tukey em Python.
 
-
+  
 ```{r, echo=FALSE}
 
 py <- read.delim("py/summary.csv", colClasses = character(), header = FALSE, sep = ";")
@@ -220,18 +287,18 @@ py %>%
   scale_y_discrete(expand=c(0,0))   
 
 ```
-
+  
 
 Nessa versão da aplicação, em cerca de 500 injeções não houve nenhum mascaramento. Ao verificar as variáveis que foram afetadas, percebeu-se que todas elas eram pertencentes ao interpretador Python. Com isso, surgem duas possibilidades: ou o grupo não soube utilizar o injetor, de forma que ele não foi capaz de injetar as falhas na aplicação corretamente, ou linguagens interpretadas simplesmente são extremamente vulneráveis a falhas devido à necessidade de um interpretador. Como o grupo conversou com o desenvolvedor responsável pelo CAROL-FI para elaborar os testes, pressupõe-se que trata-se realmente da vulnerabilidade de aplicações que exigem um interpretador executando suas instruções.
 
 Dadas essas conclusões, não foram injetadas mais falhas nessa implementação.
 
-
+  
 ## Análise FFTW C++ 2 Threads
 
 Após perceber que a análise em Python não seria capaz de fornecer os resultados apropriados, decidiu-se utilizar umas das funcionalidades da biblioteca FFTW, que permite que a transformada seja calculada em mais de uma thread.
 
-
+  
 ```{r, echo=FALSE}
 
 fftw2 <- read.delim("fftw2t-single/summary.csv", colClasses = character(), header = FALSE, sep = ";")
@@ -247,11 +314,11 @@ fftw2 %>%
   xlab("") +
   scale_y_discrete(expand=c(0,0))   
 ```
-
+  
 
 Utilizando 2 threads, o percentual de DUEs foi o maior encontrado enquanto o de SDCs diminuiu. Isso sugere que, nessa implementação, o efeito das injeções é "mais nocivo" à execução, possivelmente devido às variáveis de controle utilizadas para utilização e sincronização das threads.
 
-
+  
 ```{r, echo=FALSE}
 
 fftw2SDCDf %>% 
@@ -268,11 +335,11 @@ fftw2SDCDf %>%
   ylab("PVF") +
   ggtitle("SDCs FFTW 2 Threads C++")
 ```
-
+  
 
 Apesar dos resultados anteriores, as variáveis mais vulneráveis nessa implementação não são muito diferentes das analisadas com uma única thread quando se trata de SDCs.
 
-
+  
 ```{r, echo=FALSE}
 
 fftw2DUEDf %>% 
@@ -289,10 +356,10 @@ fftw2DUEDf %>%
   ylab("PVF") +
   ggtitle("DUEs FFTW 2 Threads C++")
 ```
-
+  
 
 No entanto, se tratando de DUEs, surge uma nova variável extremamente vulnerável, possivelmente vinculada ao controle das diferentes threads, conforme suposto anteriormente. Além disso, surge a variável *p*, responsável por definir o método da transformada a ser aplicado, o que também sugere que as configurações para controle das threads estão relacionadas ao aumento dos DUEs nessa implementação.
-
+  
 # Conclusão
 
 Após analisados os dados, conclui-se que uma duplicação (ou triplicação) das variáveis de controle apresentará um impacto considerável nas implementações do algoritmo Cooley-Tukey.

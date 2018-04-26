@@ -1,0 +1,21 @@
+PVF ;flips ;SDCs ;Var name ;file ;line number
+10.69767441860465;645;69;matrix;cooley_tukey.c;25
+10.720268006700168;597;64;n;cooley_tukey.c;25
+53.84615384615385;26;14;_dl_skip_args;rtld.c;84
+20.0;30;6;argv;cooley_tukey.c;46
+31.57894736842105;19;6;user_entry;../elf/dl-sysdep.c;89
+0.6172839506172839;648;4;i;cooley_tukey.c;32
+12.0;25;3;matrix;cooley_tukey.c;76
+14.285714285714285;21;3;_rtld_local_ro;rtld.c;202
+9.090909090909092;22;2;input;cooley_tukey.c;54
+6.451612903225806;31;2;size;cooley_tukey.c;59
+7.142857142857142;14;1;_dl_argv;rtld.c;86
+3.571428571428571;28;1;line;cooley_tukey.c;55
+3.571428571428571;28;1;position;cooley_tukey.c;60
+14.285714285714285;7;1;heap;cooley_tukey.c;8
+12.5;8;1;n;cooley_tukey.c;6
+3.8461538461538463;26;1;__GI__dl_argv;rtld.c;83
+7.142857142857142;14;1;_rtld_global_ro;rtld.c;168
+16.666666666666664;6;1;matrix;cooley_tukey.c;6
+10.0;10;1;_rtld_global;rtld.c;140
+6.666666666666667;15;1;n;iogetdelim.c;40
