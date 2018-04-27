@@ -42,6 +42,10 @@ fftw2DUEDf <- read.delim("fftw2t-single/variables_due.csv", colClasses = charact
 
 Para a elaboração desse trabalho, foram injetadas entre 3000 e 5000 falhas do tipo *Single Bit Flip* através do CAROL-FI em 5 aplicações diferentes. Todos os testes foram executados em processadores da família Intel Core, portanto assume-se que se trata da mesma arquitetura, apesar das pequenas diferenças que possam existir entre os diferentes modelos utilizados.
 
+
+Foram utilizados o gcc 5.4 (implementação em C), gcc 6.3 (implementações em C++) e Python 3.5 para realização dos testes.
+
+
 As aplicações foram:
 
 * Algoritmo de Cooley-Tukey em C++
