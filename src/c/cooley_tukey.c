@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <complex.h>
 
+complex *first_matrix, *second_matrix;
+int matrix_size;
+
 void split (complex *matrix, int n) { // coloca os pares no inicio e impares da metade em diante
 
   complex *heap = malloc(sizeof(complex)*(n/2));
@@ -43,22 +46,16 @@ void fft2 (complex *matrix, int n) {
 }
 
 
-int main(int argc, char *argv[]) {
+int run(char *input_file, char *output_file, int step) {
 
-  complex *matrix = malloc(sizeof(complex)*4);
-  matrix[0] = 0 + 0*I;
-  matrix[1] = 1 + 0*I;
-  matrix[2] = 2 + 0*I;
-  matrix[3] = 3 + 0*I;
-
-  FILE *input = fopen(argv[1], "r");
+  FILE *input = fopen(input_file, "r");
   char *line = NULL;
   size_t len = 0;
   ssize_t read;
 
   int height, width, size;
   int position = 0;
-  
+
   if (input == NULL) {
     return 1;
   }
@@ -72,9 +69,17 @@ int main(int argc, char *argv[]) {
     width = atoi(line);
 
     size = width*height;
+    matrix_size = size;
 
     complex *matrix = malloc(sizeof(complex)*size);
-    
+
+    if (step == 0) {
+        first_matrix = matrix;
+    }
+    else {
+        second_matrix = matrix;
+    }
+
     while (position < size) {
       getline(&line, &len, input);
       matrix[position] = atoi(line) + 0*I;
@@ -85,23 +90,51 @@ int main(int argc, char *argv[]) {
 
     fft2(matrix, size);
 
-    FILE *output = fopen(argv[2], "w+");
-    
-    position = 0;
+    if (step == 0) { // printa só o primeiro resultado
+        FILE *output = fopen(output_file, "w+");
 
-    while (position < size) {
-      if (cimag(matrix[position]) >= 0)
-	fprintf(output, "%f+%fj\n", creal(matrix[position]), cimag(matrix[position]));
+        position = 0;
 
-      else
-	fprintf(output, "%f%fj\n", creal(matrix[position]), cimag(matrix[position]));
+        while (position < size) {
+          if (cimag(matrix[position]) >= 0)
+    	fprintf(output, "%f+%fj\n", creal(matrix[position]), cimag(matrix[position]));
 
-      position++;
+          else
+    	fprintf(output, "%f%fj\n", creal(matrix[position]), cimag(matrix[position]));
+
+          position++;
+        }
+
+        fclose(output);
     }
-
-    fclose(output);
 
     return 0;
   }
 
+}
+
+int compare() {
+
+
+    FILE *detected = fopen("detected_failures.txt", "a");
+    int i = 0;
+
+    while (i < matrix_size) {
+        if (creal(first_matrix[i]) != creal(second_matrix[i]) || cimag(first_matrix[i] != cimag(second_matrix[i]))) {
+            fprintf(detected, "1\n");
+            return 1;
+        }
+        i++;
+    }
+
+    fclose(detected);
+    return 0;
+}
+
+int main(int argc, char *argv[]) {
+
+    run(argv[1], argv[2], 0);
+    run(argv[1], argv[2], 1);
+
+    compare();
 }
