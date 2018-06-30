@@ -8,6 +8,9 @@
 
 using namespace std;
 
+complex<double> *first_matrix, *second_matrix;
+int matrix_size;
+
 void split (complex<double> *matrix, int n) { // coloca os pares no inicio e impares da metade em diante
 
   complex<double> *heap = new complex<double>[n/2];
@@ -46,10 +49,10 @@ void fft2 (complex<double> *matrix, int n) {
 }
 
 
-int main(int argc, char *argv[]) {
+int run(char *input_file, char *output_file, int step) {
 
   string line;
-  ifstream file (argv[1]);
+  ifstream file (input_file);
   int width, height, size;
 
 
@@ -62,8 +65,18 @@ int main(int argc, char *argv[]) {
     height = atoi(line.c_str());
 
     size = width*height;
+    matrix_size = size;
 
     complex<double> *matrix = new complex<double>[size];
+
+    if (step == 0) {
+        first_matrix = matrix;
+    }
+
+    else {
+        second_matrix = matrix;
+    }
+
     complex<double> current;
     int position = 0;
 
@@ -78,20 +91,44 @@ int main(int argc, char *argv[]) {
 
     fft2(matrix, size);
 
-    ofstream output;
-    output.open(argv[2]);
-    for (int i = 0; i < size; i++) {
-      if (matrix[i].imag() >= 0)
-	output << matrix[i].real() << "+" << matrix[i].imag() << "j" << endl;
-      else
-	output << matrix[i].real() << matrix[i].imag() << "j" << endl;
+    if (step == 0) {
+        ofstream output;
+        output.open(output_file);
+        for (int i = 0; i < size; i++) {
+          if (matrix[i].imag() >= 0)
+    	output << matrix[i].real() << "+" << matrix[i].imag() << "j" << endl;
+          else
+    	output << matrix[i].real() << matrix[i].imag() << "j" << endl;
+        }
+        output.close();
     }
-    output.close();
-
   }
 
   else cout << "Unable to open file";
+}
+
+int compare() {
 
 
+    ofstream detected;
+    detected.open("detected_failures_cpp.txt");
+    int i = 0;
 
+    while (i < matrix_size) {
+        if (first_matrix[i].real() != second_matrix[i].real() || first_matrix[i].imag() != second_matrix[i].imag()) {
+            detected << "1" << endl;
+            return 1;
+        }
+        i++;
+    }
+
+    detected.close();
+    return 0;
+}
+
+
+int main(int argc, char *argv[]) {
+    run(argv[1], argv[2], 0);
+    run(argv[1], argv[2], 1);
+    compare();
 }
