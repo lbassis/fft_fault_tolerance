@@ -111,7 +111,7 @@ int compare() {
 
 
     ofstream detected;
-    detected.open("detected_failures_cpp.txt");
+    detected.open("detected_failures_cpp.txt", ios::app);
     int i = 0;
 
     while (i < matrix_size) {
