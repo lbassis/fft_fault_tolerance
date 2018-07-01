@@ -365,7 +365,29 @@ fftw2DUEDf %>%
   
 
 No entanto, se tratando de DUEs, surge uma nova variável extremamente vulnerável, possivelmente vinculada ao controle das diferentes threads, conforme suposto anteriormente. Além disso, surge a variável *p*, responsável por definir o método da transformada a ser aplicado, o que também sugere que as configurações para controle das threads estão relacionadas ao aumento dos DUEs nessa implementação.
+
+# Duplicação do Código
+
+O código das versões em C e C++ foi duplicado. A versão em Python foi descartada devido aos resultados apresentados na avaliação das variáveis e a implementação usando a biblioteca FFTW não foi levada em consideração, já que a implementação da transformada em si não seria alterável.
+
+Para que fosse possível fazer tanto a verificação com o golden quanto o resultado da detecção de erros, a abordagem utilizada foi a seguinte: apenas a matriz resultante na primeira operação foi utilizada na comparação com o resultado original. Nos casos em que o algoritmo detectou uma discrepância entre a primeira e a segunda execução do algoritmo, um arquivo externo incrementou um contador de erros detectados.
+
+Dessa maneira, foi possível realizar a contagem de erros detectados paralelamente aos resultados que o CAROL-FI fornece normalmente. No entanto, não é possível saber se os erros detectados vieram de um Hang, Masked ou SDC.
+
+```{r pressure, echo=FALSE, out.width = '100%'}
+knitr::include_graphics("Selection_001.png")
+```
+
+Em C, foram detectados mais erros do que houveram SDCs. Como dito anteriormente, o grupo não encontrou uma maneira de encontrar quando houve detecção (se foi em um erro mascarado ou silencioso), mas pode-se perceber que foram detectados erros o suficiente para supormos que todos SDCs foram percebidos, apesar disso não poder ser confirmado.
+
+
+```{r pressure, echo=FALSE, out.width = '100%'}
+knitr::include_graphics("Selection_002.png")
+```
   
+  Em C++, conforme esperado, o resultado foi o mesmo que o encontrado em C. Vale notar que em ambas essas análises, temos um overhead estimado de 100%, já que o código foi executado duas vezes para que fosse possível fazer essa avaliação.
+
+
 # Conclusão
 
 Após analisados os dados, conclui-se que uma duplicação (ou triplicação) das variáveis de controle apresentará um impacto considerável nas implementações do algoritmo Cooley-Tukey.
