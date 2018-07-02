@@ -199,7 +199,7 @@ cDUEDf %>%
   theme(axis.title=element_text(size=20)) +
   xlab("Variable") +
   ylab("PVF") +
-  ggtitle("DUEs Cooley-Tukey C++")
+  ggtitle("DUEs Cooley-Tukey C")
 ```
   
 Em questão de DUEs, das três variáveis protegíveis, duas já haviam sido detectadas como vulneráveis na análise dos SDCs. A única novidade é a vulnerabilidade do *heap*, que não parece apresentar uma vulnerabilidade preocupante levando em conta o *overhead* de uma duplicação, por exemplo.
