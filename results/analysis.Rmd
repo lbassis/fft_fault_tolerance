@@ -394,7 +394,13 @@ knitr::include_graphics("Selection_002.png")
   
   Graças a isso, podemos detectar erros no vetor resultante em tempo linear, comparando o vetor do resultado consigo mesmo no sentido inverso. Sabendo em qual índice o valor está incorreto, é possível calcular o valor da transformada naquele ponto específico para corrigí-lo. No entanto, neste trabalho o grupo implementou apenas a detecção de inconsistências no resultado, e não sua correção.
   
+```{r, echo=FALSE, out.width = '100%'}
+knitr::include_graphics("Selection_020.png")
+```
+  
   Para verificar experimentalmente esse efeito, foram realizadas 5 execuções de cada versão em C para que fosse contabilizado o tempo. A matriz utilizada tinha dimensões 1024x1024 e, com o código duplicado, precisou de 2,9s para realizar seu processamento, contra 2,1s utilizando a verificação anteriormente descrita, ou seja, tendo uma economia de cerca de 30% no tempo de execução.
+  
+  No entanto, essa implementação não foi capaz sequer de detectar todos SDCs, possivelmente devido a falhas ocorridas no momento da verificação. O grupo acredita que outras propriedades da FFT possam ser exploradas para que se torne viável essa técnica como selective hardening, mas não foi capaz de explorá-las para este trabalho.
 
 
 # Conclusão
