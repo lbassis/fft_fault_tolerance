@@ -374,22 +374,31 @@ Para que fosse possível fazer tanto a verificação com o golden quanto o resul
 
 Dessa maneira, foi possível realizar a contagem de erros detectados paralelamente aos resultados que o CAROL-FI fornece normalmente. No entanto, não é possível saber se os erros detectados vieram de um Hang, Masked ou SDC.
 
-```{r pressure, echo=FALSE, out.width = '100%'}
+```{r, echo=FALSE, out.width = '100%'}
 knitr::include_graphics("Selection_001.png")
 ```
 
 Em C, foram detectados mais erros do que houveram SDCs. Como dito anteriormente, o grupo não encontrou uma maneira de encontrar quando houve detecção (se foi em um erro mascarado ou silencioso), mas pode-se perceber que foram detectados erros o suficiente para supormos que todos SDCs foram percebidos, apesar disso não poder ser confirmado.
 
 
-```{r pressure, echo=FALSE, out.width = '100%'}
+```{r, echo=FALSE, out.width = '100%'}
 knitr::include_graphics("Selection_002.png")
 ```
   
   Em C++, conforme esperado, o resultado foi o mesmo que o encontrado em C. Vale notar que em ambas essas análises, temos um overhead estimado de 100%, já que o código foi executado duas vezes para que fosse possível fazer essa avaliação.
+  
+  
+# Selective Hardening
+
+  O resultado da aplicação da Tranformada Discreta de Fourier é um vetor de números complexos, isto é, compostos de uma parte real e uma parte imaginária. Portanto, sabemos que os valores devem sempre contar com seus pares conjugados, ou seja, em um resultado de tamanho N, caso exista o valor a+i*b na posição k, deve haver o valor a-i*b na posição N-k.
+  
+  Graças a isso, podemos detectar erros no vetor resultante em tempo linear, comparando o vetor do resultado consigo mesmo no sentido inverso. Sabendo em qual índice o valor está incorreto, é possível calcular o valor da transformada naquele ponto específico para corrigí-lo. No entanto, neste trabalho o grupo implementou apenas a detecção de inconsistências no resultado, e não sua correção.
+  
+  Para verificar experimentalmente esse efeito, foram realizadas 5 execuções de cada versão em C para que fosse contabilizado o tempo. A matriz utilizada tinha dimensões 1024x1024 e, com o código duplicado, precisou de 2,9s para realizar seu processamento, contra 2,1s utilizando a verificação anteriormente descrita, ou seja, tendo uma economia de cerca de 30% no tempo de execução.
 
 
 # Conclusão
 
-Após analisados os dados, conclui-se que uma duplicação (ou triplicação) das variáveis de controle apresentará um impacto considerável nas implementações do algoritmo Cooley-Tukey.
+Após analisados os dados, concluiu-se que uma duplicação (ou triplicação) das variáveis de controle apresentaria um impacto considerável nas implementações do algoritmo Cooley-Tukey. Isso foi confirmado pelo número de erros detectados na duplicação. No entanto, infelizmente o grupo não encontrou maneiras de rastrear se os erros detectados foram oriundos de um SDC ou uma falha mascarada.
 
-Já nas implementações que utilizam a biblioteca FFTW, a maior preocupação é com a estrutura do problema em si. Para proteger esses trechos, o grupo planeja utilizar algumas redundâncias presentes na transformada de Fourier, que permitem, no mínimo, detectar quando o resultado não é correto. Essas técnicas também serão aproveitadas nas implementações de Cooley-Tukey, apesar desse não ser o maior causador de erros nesses casos.
+Já nas implementações que utilizam a biblioteca FFTW, a maior preocupação é com a estrutura do problema em si. Para proteger esses trechos, o grupo planejava utilizar algumas redundâncias presentes na transformada de Fourier, que permitem, no mínimo, detectar quando o resultado não é correto. Essas redundâncias, no entanto, foram implementadas somenta na versão em C, que apresentou resultados positivos conforme o esperado mas não teve a correção das falhas implementada.
